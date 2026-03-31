@@ -4,6 +4,7 @@ import apiRouter from "./routes";
 
 // import sampleQueueProducer from "./producers/sampleQueueProducer";
 import SampleWorker from "./workers/sampleWorker";
+import runPython from "./containers/runPythonDocker";
 
 const app = express();
 
@@ -25,5 +26,18 @@ app.listen(serverConfig.PORT, () => {
   //     role: 'SDE 1'
   //   }
   // );
+
+  const code = `
+x = input()
+y = input()
+print("value of x is ", x)
+print("value of y is ", y)
+  `;
+
+
+  const inputCase = `100
+200
+  `
+  runPython(code, inputCase);
 
 });
